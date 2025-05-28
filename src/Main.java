@@ -14,15 +14,16 @@ public class Main
         AutoBlackJack H17 = new AutoBlackJack(newShoe, 0, 1,"src/SC/HitOnSoft17.txt");
         AutoBlackJack S17 = new AutoBlackJack(newShoe, 0, 1, "src/SC/StayOnSoft17.txt");
 
-        System.out.println("H17 game w S17 strat");
+//        System.out.println("H17 game w S17 strat");
 //        S17.play(1,500000, 3);
-//        System.out.println("H17 game w H17 strat");
-        H17.play(1,5, 3);
+        BlackJack.CAN_LATE_SURRENDER = true;
+        System.out.println("H17 game w H17 strat");
+        H17.play(1, 50);
 //        H17.HIT_ON_SOFT_17 = false;
-//        S17.HIT_ON_SOFT_17 = false;
+        BlackJack.HIT_ON_SOFT_17 = false;
 //        System.out.println("S17 game w H17 strat");
 //        H17.play(1,500000, 3);
-//        System.out.println("S17 game w S17 strat");
-//        S17.play(1,500000, 3);
+        System.out.println("S17 game w S17 strat");
+        S17.play(1,1);
     }
 }

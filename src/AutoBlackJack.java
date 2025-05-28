@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 //something needs fixing, MAKE SURE REG GAME WORKS
 
@@ -9,8 +8,11 @@ public class AutoBlackJack extends BlackJack{
     protected int handNumber;
     protected long initialBankroll;
     protected long totalMoneyPlayed;
+
+    // 0 hit, 1 stay, 2 double (if cant, hit), 3 split, 4 surrender (if cant, hit),
+    // 5 double (if cant, stay), 6 surrender (if cant, stay), 7 surrender (if cant, split)
+    // 8 split (if can double after split, else hit)
     //fix strategy based on game
-    // 0 hit, 1 stay, 2 double (if cant, hit), 3 split, 4 surrender (if can), 5 double (if cant, stay)
     private final int[][] strategy;
 
     public AutoBlackJack(Shoe shoe, int bankroll, int unit) {
@@ -57,7 +59,7 @@ public class AutoBlackJack extends BlackJack{
                 " Bankroll: " + bankroll);
         System.out.println("Total money played: " + totalMoneyPlayed);
         System.out.println("% profit per unit: " +
-                (((double) (bankroll - initialBankroll) / (totalMoneyPlayed)) * 100) + "\n");
+                (((bankroll - initialBankroll) / (totalMoneyPlayed)) * 100) + "\n");
     }
 
     //plays however many shoes however many times
@@ -73,7 +75,7 @@ public class AutoBlackJack extends BlackJack{
     //Overridden method to choose action based on strategy card
     @Override
     protected int getChoice(int i){
-        int choice = -1;
+        int choice;
         if(pHs.get(i).size()==2 && pHs.get(i).getValue(0) == (pHs.get(i).getValue(1))
                 && handleTimesSplit(i)){
             choice =  findSplitChoice(i);
@@ -86,10 +88,19 @@ public class AutoBlackJack extends BlackJack{
         } else {
             choice = findHardChoice(i);
         }
-        //handle cases where wants to double but cant
+        //handle cases where wants to double/surrender but cant
         if(pHs.get(i).size()!=2 && choice == 2) choice = 0;
+        if((pHs.get(i).size()!=2 || !CAN_LATE_SURRENDER) && choice == 4) choice = 0;
         if(pHs.get(i).size()!=2 && choice == 5) choice = 1;
         if(pHs.get(i).size()==2 && choice == 5) choice = 2;
+        if((pHs.get(i).size()!=2 || !CAN_LATE_SURRENDER) && choice == 6) choice = 1;
+        if(pHs.get(i).size()==2 && choice == 6) choice = 4;
+        if((pHs.get(i).size()!=2 || !CAN_LATE_SURRENDER) && choice == 7) choice = 3;
+        if(pHs.get(i).size()==2 && choice == 7) choice = 4;
+
+        //handle cases where wants to double after split but cant
+        if(CAN_DOUBLE_AFTER_SPLIT && choice == 8) choice = 3;
+        if(!CAN_DOUBLE_AFTER_SPLIT && choice == 8) choice = 0;
         return choice;
     }
 
@@ -172,104 +183,112 @@ public class AutoBlackJack extends BlackJack{
 
 
 //    so no messages are printed during auto run
-//    @Override
-//    protected void handMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void dUpCardMsg() {
-//    }
-//
-//    @Override
-//    protected void pBJMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void dBJMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pAndDBJMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void decisionMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void hitMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void doubleMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void doubleErrorMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void stayMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void splitMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void splitErrorMsg1(int i) {
-//    }
-//
-//    @Override
-//    protected void splitErrorMsg2(int i) {
-//    }
-//
-//    @Override
-//    protected void splitAcesMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pBustMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void dHandMsg() {
-//    }
-//
-//    @Override
-//    protected void dHitMsg(){
-//    }
-//
-//    @Override
-//    protected void dBustMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pHandLossMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pHandWinMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pHandPushMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void aceMsg(Hand hand) {
-//    }
-//
-//    @Override
-//    protected void sHandFirstCardMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void maxSplitsMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void twoAcesAfterSplitMsg(){
-//    }
+    @Override
+    protected void handMsg(int i) {
+    }
+
+    @Override
+    protected void dUpCardMsg() {
+    }
+
+    @Override
+    protected void pBJMsg(int i) {
+    }
+
+    @Override
+    protected void dBJMsg(int i) {
+    }
+
+    @Override
+    protected void pAndDBJMsg(int i) {
+    }
+
+    @Override
+    protected void decisionMsg(int i) {
+    }
+
+    @Override
+    protected void hitMsg(int i) {
+    }
+
+    @Override
+    protected void cantDASMsg(int i) {
+    }
+
+    @Override
+    protected void doubleMsg(int i) {
+    }
+
+    @Override
+    protected void doubleErrorMsg(int i) {
+    }
+
+    @Override
+    protected void stayMsg(int i) {
+    }
+
+    @Override
+    protected void splitMsg(int i) {
+    }
+
+    @Override
+    protected void splitErrorMsg1(int i) {
+    }
+
+    @Override
+    protected void splitErrorMsg2(int i) {
+    }
+
+    @Override
+    protected void splitAcesMsg(int i) {
+    }
+
+    @Override
+    protected void surrenderMsg(int i) {
+    }
+
+    @Override
+    protected void pBustMsg(int i) {
+    }
+
+    @Override
+    protected void dHandMsg() {
+    }
+
+    @Override
+    protected void dHitMsg(){
+    }
+
+    @Override
+    protected void dBustMsg(int i) {
+    }
+
+    @Override
+    protected void pHandLossMsg(int i) {
+    }
+
+    @Override
+    protected void pHandWinMsg(int i) {
+    }
+
+    @Override
+    protected void pHandPushMsg(int i) {
+    }
+
+    @Override
+    protected void aceMsg(Hand hand) {
+    }
+
+    @Override
+    protected void sHandFirstCardMsg(int i) {
+    }
+
+    @Override
+    protected void maxSplitsMsg(int i) {
+    }
+
+    @Override
+    protected void twoAcesAfterSplitMsg(){
+    }
 
 }

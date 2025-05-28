@@ -9,16 +9,17 @@ import java.util.Scanner;
  * can double after split
  * can only get one card after split aces, cannot re split aces
  * cannot surrender
+ * 75% penetration
  */
 
 public class BlackJack {
-    final static double BJ_PAYOUT = 1.5;
-    public boolean HIT_ON_SOFT_17 = true;
-    final static int MAX_SPLIT_COUNT = 3;
-    final static boolean CAN_RE_SPLIT_ACES = false;
-    final static boolean CAN_DOUBLE_AFTER_SPLIT = true; //maybe add
-    final static boolean CAN_LATE_SURRENDER = false; //maybe add
-    final static double PENETRATION = 0.75;
+    public static double BJ_PAYOUT = 1.5;
+    public static boolean HIT_ON_SOFT_17 = true;
+    public static int MAX_SPLIT_COUNT = 3;
+    public static boolean CAN_DOUBLE_AFTER_SPLIT = true;
+    public static boolean CAN_RE_SPLIT_ACES = false;
+    public static boolean CAN_LATE_SURRENDER = false; //maybe add
+    public static double PENETRATION = 0.75;
 
 
     protected final Shoe shoe;
@@ -30,7 +31,7 @@ public class BlackJack {
 
     //initializes blackjack object with shoe, bankroll and unit size
     public BlackJack(Shoe shoe, int bankroll, int unit) {
-        pHs = new ArrayList<BJHand>();
+        pHs = new ArrayList<>();
         this.shoe = shoe;
         this.bankroll = bankroll;
         this.unit = unit;
@@ -145,6 +146,10 @@ public class BlackJack {
                     //double down
                 } else if (choice == 2) {
                     if (pHs.get(i).size() == 2) {
+                        if(isSplit(i) && !CAN_DOUBLE_AFTER_SPLIT) {
+                            cantDASMsg(i);
+                            continue;
+                        }
                         doubleDown(i);
                         doubleMsg(i);
                     } else {
@@ -374,6 +379,14 @@ public class BlackJack {
         }
     }
 
+    //returns true the hand has been split
+    protected boolean isSplit(int i) {
+        if(pHs.get(i).getTimesSplit()>0){
+            return true;
+        }
+        return pHs.get(i).getSplitFrom() == null;
+    }
+
     protected void clearHands() {
         while (!pHs.isEmpty()) {
             pHs.removeFirst();
@@ -426,6 +439,10 @@ public class BlackJack {
     protected void hitMsg(int i) {
         System.out.println("you hit and got a " + pHs.get(i).getValue(pHs.get(i).size() - 1) +
                 " which puts you at " + pHs.get(i).getTotal());
+    }
+
+    protected void cantDASMsg(int i) {
+        System.out.println("cant double after split on hand " + i + " in this game mode");
     }
 
     protected void doubleMsg(int i) {
