@@ -357,7 +357,7 @@ public class BlackJack {
         }
     }
 
-    //true if can split again, false if cannot
+    //true if you can split again, false if cannot
     protected boolean handleTimesSplit(int i) {
         if(pHs.get(i).getTimesSplit()>=MAX_SPLIT_COUNT){
             maxSplitsMsg(i);
@@ -411,7 +411,7 @@ public class BlackJack {
 
 
 
-    //print msgs for game
+    //print messages for game
 
     protected void handMsg(int i) {
         System.out.println("\nplayer " + i + " hand: " + pHs.get(i).getTotal());

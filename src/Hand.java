@@ -6,7 +6,7 @@ public class Hand extends Card {
     int total;
 
     public Hand(int num, Deck deck) {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
         for (int i = 0; i < num; i++) {
             this.addCard(deck.pickCard());
         }

@@ -2,7 +2,7 @@
 
 public class Card{
 
-    private int value;
+    private final int value;
     private int amtLeft;
 
     public Card(){
@@ -13,10 +13,6 @@ public class Card{
     public Card(int value, int amt){
         this.value = value;
         this.amtLeft = amt;
-    }
-
-    public void setValue(int value){
-        this.value = value;
     }
 
     public void setAmtLeft(int amtLeft){
