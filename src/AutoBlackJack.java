@@ -9,9 +9,13 @@ public class AutoBlackJack extends BlackJack{
     protected long initialBankroll;
     protected long totalMoneyPlayed;
 
-    // 0 hit, 1 stay, 2 double (if cant, hit), 3 split, 4 surrender (if cant, hit),
-    // 5 double (if cant, stay), 6 surrender (if cant, stay), 7 surrender (if cant, split)
-    // 8 split (if can double after split, else hit)
+    /**
+     * Strategy card key
+     * 0 hit, 1 stay, 2 double (if cant, hit), 3 split, 4 surrender (if cant, hit),
+     * 5 double (if cant, stay), 6 surrender (if cant, stay), 7 surrender (if cant, split)
+     * 8 split (if can double after split, else hit)
+    */
+
     //fix strategy based on game
     private final int[][] strategy;
 

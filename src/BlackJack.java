@@ -7,19 +7,23 @@ import java.util.Scanner;
  * dealer hits on soft 17
  * can split 3 times (4 hands)
  * can double after split
- * can only get one card after split aces, cannot re split aces
+ * can only get one card after split aces
+ * cannot re split aces
  * cannot surrender
  * 75% penetration
  */
 
 public class BlackJack {
+    //game rules
     public static double BJ_PAYOUT = 1.5;
     public static boolean HIT_ON_SOFT_17 = true;
     public static int MAX_SPLIT_COUNT = 3;
     public static boolean CAN_DOUBLE_AFTER_SPLIT = true;
+    public static boolean CAN_HIT_AGAIN_AFTER_SPLIT_ACES = false;
     public static boolean CAN_RE_SPLIT_ACES = false;
     public static boolean CAN_LATE_SURRENDER = false; //maybe add
     public static double PENETRATION = 0.75;
+
 
 
     protected final Shoe shoe;
@@ -116,7 +120,8 @@ public class BlackJack {
             //if hand was split, adds second card after first hand played
             if (pHs.get(i).size() == 1) {
                 hit(i);
-                if (pHs.get(i).getValue(0) == 11) {
+                if (pHs.get(i).getValue(0) == 11
+                    && !CAN_HIT_AGAIN_AFTER_SPLIT_ACES) {
                     if(pHs.get(i).getValue(1) != 11) {
                         pHs.get(i).setFinished();
                     } else {
@@ -178,14 +183,16 @@ public class BlackJack {
                 }
                 //if player has two aces (after split again or non split choice)
                 if(pHs.get(i).getValue(0) == 11 && pHs.get(i).getValue(1) == 11
-                    && pHs.get(i).size() == 2){
+                    && pHs.get(i).size() == 2) {
                     //handle if stayed on 2 aces
                     if(pHs.get(i).isFinished() || !handleTimesSplit(i)){
                         aceHandle(pHs.get(i));
                         pHs.get(i).setFinished();
                     }
-                    twoAcesAfterSplitMsg();
-                    pHs.get(i).lockChoice();
+                    if (!CAN_HIT_AGAIN_AFTER_SPLIT_ACES) {
+                        twoAcesAfterSplitMsg();
+                        pHs.get(i).lockChoice();
+                    }
                 }
 
                 //if player hand busts, set finished
@@ -316,7 +323,8 @@ public class BlackJack {
         //handles split count limit
         calcTimesSplit(index);
         //if ace, only adds one card to each and sets each as finished
-        if(pHs.get(index).getValue(0)==11){
+        if(pHs.get(index).getValue(0)==11
+            && !CAN_HIT_AGAIN_AFTER_SPLIT_ACES){
             hitOnSplitAces(index);
             return;
         }
@@ -330,7 +338,7 @@ public class BlackJack {
         splitAcesMsg(index);
         hit(index);
         sHandFirstCardMsg(index);
-        //will resplit action if another ace (if enabled), same below
+        //will re split action if another ace (if enabled), same below
         if(pHs.get(index).getValue(1)==11 && CAN_RE_SPLIT_ACES){
             return;
         }
