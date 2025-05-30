@@ -12,9 +12,9 @@ public class Main
         AutoBlackJack S17 = new AutoBlackJack(newShoe, 0, 1, "src/SC/StayOnSoft17.txt");
 
         System.out.println("H17 game w H17 strategy");
-        H17.play(1,200000,5);
+        H17.play(1,1,5);
         BlackJack.HIT_ON_SOFT_17 = false;
         System.out.println("S17 game w S17 strategy");
-        S17.play(1,200000,5);
+        S17.play(1,1,5);
     }
 }

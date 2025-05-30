@@ -26,6 +26,10 @@ public class BlackJack {
 
 
 
+
+
+
+
     protected final Shoe shoe;
     protected double bankroll;
     protected int unit;
@@ -119,7 +123,7 @@ public class BlackJack {
         for (int i = 0; i < pHs.size(); i++) {
             //if hand was split, adds second card after first hand played
             if (pHs.get(i).size() == 1) {
-                hit(i);
+                hit(pHs.get(i));
                 if (pHs.get(i).getValue(0) == 11
                     && !CAN_HIT_AGAIN_AFTER_SPLIT_ACES) {
                     if(pHs.get(i).getValue(1) != 11) {
@@ -146,8 +150,8 @@ public class BlackJack {
                 }
                 //hit
                 if (choice == 0) {
-                    hit(i);
-                    hitMsg(i);
+                    hit(pHs.get(i));
+                    pHitMsg(i);
                     //double down
                 } else if (choice == 2) {
                     if (pHs.get(i).size() == 2) {
@@ -225,7 +229,7 @@ public class BlackJack {
         if (!runDealer) return;
         //if starts soft 17 (ace and 6) will hit again
         if ((dH.getTotal() == 17 && dH.hasAce() && HIT_ON_SOFT_17)){
-            dH.addRandomCard(shoe);
+            hit(dH);
             dHitMsg();
         }
         //if starts with two aces or hits after soft 17 and busts, will reset ace to 1
@@ -234,11 +238,11 @@ public class BlackJack {
         }
         //hit until 17, if it goes over will check ace to keep hitting, busts are taken care of in postPlayedLogic
         while (dH.getTotal() < 17) {
-            dH.addRandomCard(shoe);
+            hit(dH);
             dHitMsg();
             //will hit again on soft 17
             if (dH.getTotal() == 17 && dH.hasAce() && HIT_ON_SOFT_17) {
-                dH.addRandomCard(shoe);
+                hit(dH);
                 dHitMsg();
             }
             //if busted, reset ace to 1
@@ -247,7 +251,7 @@ public class BlackJack {
             }
             //will hit on soft 17 after reset if ace put it to 17
             if (dH.getTotal() == 17 && dH.hasAce() && HIT_ON_SOFT_17) {
-                dH.addRandomCard(shoe);
+                hit(dH);
                 dHitMsg();
             }
 
@@ -295,8 +299,8 @@ public class BlackJack {
 
 
     //adds a random card to a hand
-    private void hit(int index) {
-        pHs.get(index).addRandomCard(shoe);
+    private void hit(Hand hand) {
+        hand.addRandomCard(shoe);
     }
 
     //sets a BJ hand as finished
@@ -329,14 +333,14 @@ public class BlackJack {
             return;
         }
         //adds second card to first hand
-        hit(index);
+        hit(pHs.get(index));
         sHandFirstCardMsg(index);
     }
 
     //hits once on each ace, if another ace it terminates so that it can be split again
     private void hitOnSplitAces(int index) {
         splitAcesMsg(index);
-        hit(index);
+        hit(pHs.get(index));
         sHandFirstCardMsg(index);
         //will re split action if another ace (if enabled), same below
         if(pHs.get(index).getValue(1)==11 && CAN_RE_SPLIT_ACES){
@@ -346,7 +350,7 @@ public class BlackJack {
         if(pHs.get(index).getValue(1)==11){
             aceHandle(pHs.get(index));
         }
-        hit(index + 1);
+        hit(pHs.get(index + 1));
         sHandFirstCardMsg(index + 1);
         if(pHs.get(index + 1).getValue(1)==11 && CAN_RE_SPLIT_ACES){
             return;
@@ -444,8 +448,9 @@ public class BlackJack {
         }
     }
 
-    protected void hitMsg(int i) {
-        System.out.println("you hit and got a " + pHs.get(i).getValue(pHs.get(i).size() - 1) +
+    protected void pHitMsg(int i) {
+        System.out.println("Hand: " + i + " hit and got a " +
+                pHs.get(i).getValue(pHs.get(i).size() - 1) +
                 " which puts you at " + pHs.get(i).getTotal());
     }
 

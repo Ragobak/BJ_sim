@@ -212,7 +212,7 @@ public class AutoBlackJack extends BlackJack{
     }
 
     @Override
-    protected void hitMsg(int i) {
+    protected void pHitMsg(int i) {
     }
 
     @Override
