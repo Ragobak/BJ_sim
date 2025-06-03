@@ -81,7 +81,7 @@ public class AutoBlackJack extends BlackJack{
     protected int getChoice(int i){
         int choice;
         if(pHs.get(i).size()==2 && pHs.get(i).getValue(0) == (pHs.get(i).getValue(1))
-                && handleTimesSplit(i)){
+                && handleTimesSplit(i) && pHs.get(i).size() == 2){
             choice =  findSplitChoice(i);
         } else if(pHs.get(i).hasAce()) {
             //if in rare case cant split aces, treat it as soft 12
@@ -92,19 +92,8 @@ public class AutoBlackJack extends BlackJack{
         } else {
             choice = findHardChoice(i);
         }
-        //handle cases where wants to double/surrender but cant
-        if(pHs.get(i).size()!=2 && choice == 2) choice = 0;
-        if((pHs.get(i).size()!=2 || !CAN_LATE_SURRENDER) && choice == 4) choice = 0;
-        if(pHs.get(i).size()!=2 && choice == 5) choice = 1;
-        if(pHs.get(i).size()==2 && choice == 5) choice = 2;
-        if((pHs.get(i).size()!=2 || !CAN_LATE_SURRENDER) && choice == 6) choice = 1;
-        if(pHs.get(i).size()==2 && choice == 6) choice = 4;
-        if((pHs.get(i).size()!=2 || !CAN_LATE_SURRENDER) && choice == 7) choice = 3;
-        if(pHs.get(i).size()==2 && choice == 7) choice = 4;
 
-        //handle cases where wants to double after split but cant
-        if(CAN_DOUBLE_AFTER_SPLIT && choice == 8) choice = 3;
-        if(!CAN_DOUBLE_AFTER_SPLIT && choice == 8) choice = 0;
+        choice = recheckChoice(i, choice);
         return choice;
     }
 
@@ -148,6 +137,29 @@ public class AutoBlackJack extends BlackJack{
     protected void split(int index) {
         super.split(index);
         if(handleTimesSplit(index)) totalMoneyPlayed += unit;
+    }
+
+    //rechecks to make sure decision is allowed
+    private int recheckChoice(int i, int choice) {
+        //7 and 8 only show up in split cases, so more checks are done in getChoice
+        //handle cases where wants to surrender but cant
+        if((pHs.get(i).size() != 2 || !isSplit(i) || !CAN_LATE_SURRENDER) && choice == 4) return 0;
+        if((pHs.get(i).size() != 2 || !isSplit(i) || !CAN_LATE_SURRENDER) && choice == 6) return 1;
+        else if(choice == 6) return 4;
+        if(!CAN_LATE_SURRENDER && choice == 7) return 3;
+        else if(choice == 7) return 4;
+
+        //handle cases after split
+        //TODO desicion tree slightly wrong here
+        if((pHs.get(i).size()!=2 || (isSplit(i) && CAN_DOUBLE_AFTER_SPLIT)) && choice == 2) return 0;
+        if((pHs.get(i).size()!=2 || (isSplit(i) && CAN_DOUBLE_AFTER_SPLIT)) && choice == 5) return 1;
+        //TODO until here
+        else if(choice == 5) return 2;
+        if(CAN_DOUBLE_AFTER_SPLIT && choice == 8) return 3;
+        else if(choice == 8) return 0;
+
+        //if nothing updated return original choice
+        return choice;
     }
 
     //takes a file formatted correctly and makes it into readable 2D array
@@ -249,6 +261,10 @@ public class AutoBlackJack extends BlackJack{
 
     @Override
     protected void surrenderMsg(int i) {
+    }
+
+    @Override
+    protected void surrenderErrorMsg() {
     }
 
     @Override

@@ -181,9 +181,15 @@ public class BlackJack {
                         splitErrorMsg2(i);
                     }
                 } else if (choice == 4 && CAN_LATE_SURRENDER) {
-                    pHs.get(i).setBusted();
-                    bankroll -= unit * 0.5;
-                    surrenderMsg(i);
+                    if(pHs.get(i).size() == 2 && !isSplit(i)) {
+                        pHs.get(i).setBusted();
+                        bankroll -= unit * 0.5;
+                        surrenderMsg(i);
+                    } else {
+                        surrenderErrorMsg();
+                    }
+                } else {
+                    surrenderErrorMsg();
                 }
                 //if player has two aces (after split again or non split choice)
                 if(pHs.get(i).getValue(0) == 11 && pHs.get(i).getValue(1) == 11
@@ -232,6 +238,7 @@ public class BlackJack {
             hit(dH);
             dHitMsg();
         }
+        //TODO something wrong here, wont count correctly if 2 aces and hard 17 and busts
         //if starts with two aces or hits after soft 17 and busts, will reset ace to 1
         if (dH.hasAce() && dH.getTotal() > 21) {
             aceHandle(dH);
@@ -391,12 +398,12 @@ public class BlackJack {
         }
     }
 
-    //returns true the hand has been split
+    //returns true if the hand has been split
     protected boolean isSplit(int i) {
         if(pHs.get(i).getTimesSplit()>0){
             return true;
         }
-        return pHs.get(i).getSplitFrom() == null;
+        return pHs.get(i).getSplitFrom() != null;
     }
 
     protected void clearHands() {
@@ -489,6 +496,10 @@ public class BlackJack {
 
     protected void surrenderMsg(int i) {
         System.out.println("you surrendered " + pHs.get(i).getTotal() + ". Money: " + bankroll);
+    }
+
+    protected void surrenderErrorMsg() {
+        System.out.println("cannot surrender after getting a card");
     }
 
     protected void pBustMsg(int i) {
