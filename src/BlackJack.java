@@ -186,10 +186,10 @@ public class BlackJack {
                         bankroll -= unit * 0.5;
                         surrenderMsg(i);
                     } else {
-                        surrenderErrorMsg();
+                        surrenderErrorMsg1();
                     }
                 } else {
-                    surrenderErrorMsg();
+                    surrenderErrorMsg2();
                 }
                 //if player has two aces (after split again or non split choice)
                 if(pHs.get(i).getValue(0) == 11 && pHs.get(i).getValue(1) == 11
@@ -233,35 +233,30 @@ public class BlackJack {
         dHandMsg();
         //if determined above, skip playing dealer (already skipped if BJ in checkBlackJack
         if (!runDealer) return;
-        //if starts soft 17 (ace and 6) will hit again
-        if ((dH.getTotal() == 17 && dH.hasAce() && HIT_ON_SOFT_17)){
-            hit(dH);
-            dHitMsg();
-        }
-        //TODO something wrong here, wont count correctly if 2 aces and hard 17 and busts
-        //if starts with two aces or hits after soft 17 and busts, will reset ace to 1
+
+
+        //if starts with two aces, will reset ace to 1
         if (dH.hasAce() && dH.getTotal() > 21) {
             aceHandle(dH);
         }
         //hit until 17, if it goes over will check ace to keep hitting, busts are taken care of in postPlayedLogic
-        while (dH.getTotal() < 17) {
+        while (dH.getTotal() < 17 && !HIT_ON_SOFT_17) {
             hit(dH);
             dHitMsg();
-            //will hit again on soft 17
-            if (dH.getTotal() == 17 && dH.hasAce() && HIT_ON_SOFT_17) {
-                hit(dH);
-                dHitMsg();
-            }
             //if busted, reset ace to 1
-            if (dH.getTotal() > 21 || (dH.getTotal() == 17 && HIT_ON_SOFT_17)) {
+            if (dH.getTotal() > 21) {
                 aceHandle(dH);
             }
-            //will hit on soft 17 after reset if ace put it to 17
-            if (dH.getTotal() == 17 && dH.hasAce() && HIT_ON_SOFT_17) {
-                hit(dH);
-                dHitMsg();
-            }
+        }
 
+        //same us above but for hit on soft 17
+        while ((dH.getTotal() < 17 || (dH.getTotal() == 17 && dH.hasAce())) && HIT_ON_SOFT_17) {
+            hit(dH);
+            dHitMsg();
+
+            if (dH.getTotal() > 21) {
+                aceHandle(dH);
+            }
         }
     }
 
@@ -456,7 +451,7 @@ public class BlackJack {
     }
 
     protected void pHitMsg(int i) {
-        System.out.println("Hand: " + i + " hit and got a " +
+        System.out.println("Hand " + i + " hit and got a " +
                 pHs.get(i).getValue(pHs.get(i).size() - 1) +
                 " which puts you at " + pHs.get(i).getTotal());
     }
@@ -498,8 +493,12 @@ public class BlackJack {
         System.out.println("you surrendered " + pHs.get(i).getTotal() + ". Money: " + bankroll);
     }
 
-    protected void surrenderErrorMsg() {
-        System.out.println("cannot surrender after getting a card");
+    protected void surrenderErrorMsg1() {
+        System.out.println("cannot surrender after getting a card or splitting");
+    }
+
+    protected void surrenderErrorMsg2() {
+        System.out.println("cannot surrender in this gamemode");
     }
 
     protected void pBustMsg(int i) {
