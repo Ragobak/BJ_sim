@@ -301,7 +301,7 @@ public class BlackJack {
 
 
     //adds a random card to a hand
-    private void hit(Hand hand) {
+    protected void hit(Hand hand) {
         hand.addRandomCard(shoe);
     }
 

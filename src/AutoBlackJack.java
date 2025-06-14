@@ -19,19 +19,6 @@ public class AutoBlackJack extends BlackJack{
     //fix strategy based on game
     private final int[][] strategy;
 
-    public AutoBlackJack(Shoe shoe, int bankroll, int unit) {
-        super(shoe, bankroll, unit);
-        handNumber = 0;
-        initialBankroll = bankroll;
-        totalMoneyPlayed = 0;
-        //can change this around and set strategy based on other game mode changes
-        if(HIT_ON_SOFT_17){
-            strategy = createStrategy("src/HitOnSoft17.txt");
-        } else {
-            strategy = createStrategy("src/StayOnSoft17.txt");
-        }
-    }
-
     public AutoBlackJack(Shoe shoe, int bankroll, int unit, String filename) {
         super(shoe, bankroll, unit);
         handNumber = 0;
@@ -102,7 +89,7 @@ public class AutoBlackJack extends BlackJack{
         int column = dH.getValue(0) - 2;
         if(row < 0) row = 0;
         if(row > 15) row = 15;
-        return strategy[row][column];
+        return getStrategy(row, column);
     }
 
     private int findSoftChoice(int i){
@@ -110,7 +97,7 @@ public class AutoBlackJack extends BlackJack{
         int column = dH.getValue(0) - 2;
         if(row < 16) row = 16;
         if(row > 24) row = 24;
-        return strategy[row][column];
+        return getStrategy(row, column);
     }
 
     private int findSplitChoice(int i){
@@ -118,6 +105,11 @@ public class AutoBlackJack extends BlackJack{
         int column = dH.getValue(0) - 2;
         if(row < 25) row = 25;
         if(row > 35) row = 35;
+        return getStrategy(row, column);
+    }
+
+    //method to get the strategy chart that can be overridden
+    protected int getStrategy(int row, int column){
         return strategy[row][column];
     }
 
@@ -127,6 +119,7 @@ public class AutoBlackJack extends BlackJack{
         super.setUpHand(numHands);
         totalMoneyPlayed += (long) numHands * unit;
     }
+
     @Override
     protected void doubleDown(int index) {
         super.doubleDown(index);
