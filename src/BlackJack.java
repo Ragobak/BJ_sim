@@ -83,6 +83,24 @@ public class BlackJack {
         dUpCardMsg();
     }
 
+    //TODO: finish this and make sure it works
+    protected void insuranceOffer() {
+        int[] choices = new int[pHs.size()];
+        if (dH.getValue(0) == 11) {
+            for (int i = 0; i < pHs.size(); i++) {
+                insuranceMsg(i);
+                choices[i] = getInsuranceChoice();
+            }
+        }
+        for (int i : choices) {
+            if(dH.getValue(1) != 10){
+                bankroll -= unit * 0.5;
+            }
+            if(dH.getValue(1) == 10){
+                bankroll += unit;
+            }
+        }
+    }
     //checks for BJ in each hand, players and dealer, false if dealer BJ, true else
     private boolean checkBlackJack() {
         for (int i = 0; i < pHs.size(); i++) {
@@ -142,7 +160,7 @@ public class BlackJack {
             while (!pHs.get(i).isFinished()) {
                 decisionMsg(i);
                 //choose action
-                int choice = this.getChoice(i);
+                int choice = this.getChoice();
                 //handle rare case that player tries to hit or double on two aces after already split
                 if(pHs.get(i).choiceLocked() && (choice == 0 || choice == 2)) {
                     twoAcesAfterSplitMsg();
@@ -407,10 +425,13 @@ public class BlackJack {
         }
     }
 
-    protected int getChoice(int i){
+    protected int getChoice(){
         return input.nextInt();
     }
 
+    protected int getInsuranceChoice(){
+        return input.nextInt();
+    }
 
 
 
@@ -427,6 +448,10 @@ public class BlackJack {
 
     protected void dUpCardMsg() {
         System.out.println("\ndealer up card: " + dH.getValue(0));
+    }
+
+    protected void insuranceMsg(int i){
+        System.out.println("Insurance on hand: " + i + "? yes: 0 no: 1");
     }
 
     protected void pBJMsg(int i) {
