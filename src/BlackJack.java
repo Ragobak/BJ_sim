@@ -56,6 +56,7 @@ public class BlackJack {
     //plays each hand in the shoe
     public void playHand(int playerHands) {
         setUpHand(playerHands);
+        insuranceOffer();
         if(checkBlackJack()){
             playPlayerHands();
             playDealerHand();
@@ -89,18 +90,27 @@ public class BlackJack {
         if (dH.getValue(0) == 11) {
             for (int i = 0; i < pHs.size(); i++) {
                 insuranceMsg(i);
-                choices[i] = getInsuranceChoice();
+                choices[i] = getInsuranceChoice(i);
             }
-        }
-        for (int i : choices) {
             if(dH.getValue(1) != 10){
-                bankroll -= unit * 0.5;
+                for (int i = 0; i < choices.length; i++) {
+                    if (choices[i] == 0) {
+                        bankroll -= unit * 0.5;
+                        insuranceFailMsg(i);
+                    }
+                }
             }
-            if(dH.getValue(1) == 10){
-                bankroll += unit;
+            else if(dH.getValue(1) == 10){
+                for (int i = 0; i < choices.length; i++) {
+                    if (choices[i] == 0) {
+                        bankroll += unit;
+                        insuranceSuccessMsg(i);
+                    }
+                }
             }
         }
     }
+
     //checks for BJ in each hand, players and dealer, false if dealer BJ, true else
     private boolean checkBlackJack() {
         for (int i = 0; i < pHs.size(); i++) {
@@ -160,7 +170,7 @@ public class BlackJack {
             while (!pHs.get(i).isFinished()) {
                 decisionMsg(i);
                 //choose action
-                int choice = this.getChoice();
+                int choice = this.getChoice(i);
                 //handle rare case that player tries to hit or double on two aces after already split
                 if(pHs.get(i).choiceLocked() && (choice == 0 || choice == 2)) {
                     twoAcesAfterSplitMsg();
@@ -425,11 +435,11 @@ public class BlackJack {
         }
     }
 
-    protected int getChoice(){
+    protected int getChoice(int i){
         return input.nextInt();
     }
 
-    protected int getInsuranceChoice(){
+    protected int getInsuranceChoice(int i){
         return input.nextInt();
     }
 
@@ -452,6 +462,14 @@ public class BlackJack {
 
     protected void insuranceMsg(int i){
         System.out.println("Insurance on hand: " + i + "? yes: 0 no: 1");
+    }
+
+    protected void insuranceFailMsg(int i){
+        System.out.println("Insurance on hand: " + i + " failed. Money: " + bankroll);
+    }
+
+    protected void insuranceSuccessMsg(int i){
+        System.out.println("Insurance on hand: " + i + " success. Money: " + bankroll);
     }
 
     protected void pBJMsg(int i) {

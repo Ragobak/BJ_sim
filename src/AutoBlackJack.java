@@ -108,6 +108,12 @@ public class AutoBlackJack extends BlackJack{
         return getStrategy(row, column);
     }
 
+    //base insurance decision basic strategy is no
+    @Override
+    protected int getInsuranceChoice(int i){
+        return 1;
+    }
+
     //method to get the strategy chart that can be overridden
     protected int getStrategy(int row, int column){
         return strategy[row][column];
@@ -206,6 +212,18 @@ public class AutoBlackJack extends BlackJack{
 
     @Override
     protected void dUpCardMsg() {
+    }
+
+    @Override
+    protected void insuranceMsg(int i){
+    }
+
+    @Override
+    protected void insuranceFailMsg(int i){
+    }
+
+    @Override
+    protected void insuranceSuccessMsg(int i){
     }
 
     @Override

@@ -14,9 +14,9 @@ public class Main
 
 
         System.out.println("H17 game w H17 strategy");
-        H17.play(1,15000000,3);
+        H17.play(1,1000000,3);
         BlackJack.HIT_ON_SOFT_17 = false;
         System.out.println("S17 game w S17 strategy");
-        S17.play(1,15000000,3);
+        S17.play(1,1000000,3);
     }
 }
