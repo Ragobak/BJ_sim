@@ -32,8 +32,8 @@ public class AutoBlackJack extends BlackJack{
     @Override
     public void play(int playerHands) {
         while (shoe.getLeftInDeck() > ((1 - PENETRATION) * 52 * shoe.getDecks())) {
-            playHand(playerHands);
             handNumber++;
+            playHand(playerHands);
             clearHands();
         }
     }
@@ -216,132 +216,132 @@ public class AutoBlackJack extends BlackJack{
 
 
 //    so no messages are printed during auto run
-    @Override
-    protected void handMsg(int i) {
-    }
-
-    @Override
-    protected void dUpCardMsg() {
-    }
-
-    @Override
-    protected void insuranceMsg(int i){
-    }
-
-    @Override
-    protected void insuranceFailMsg(int i){
-    }
-
-    @Override
-    protected void insuranceSuccessMsg(int i){
-    }
-
-    @Override
-    protected void pBJMsg(int i) {
-    }
-
-    @Override
-    protected void dBJMsg(int i) {
-    }
-
-    @Override
-    protected void pAndDBJMsg(int i) {
-    }
-
-    @Override
-    protected void decisionMsg(int i) {
-    }
-
-    @Override
-    protected void pHitMsg(int i) {
-    }
-
-    @Override
-    protected void cantDASMsg(int i) {
-    }
-
-    @Override
-    protected void doubleMsg(int i) {
-    }
-
-    @Override
-    protected void doubleErrorMsg(int i) {
-    }
-
-    @Override
-    protected void stayMsg(int i) {
-    }
-
-    @Override
-    protected void splitMsg(int i) {
-    }
-
-    @Override
-    protected void splitErrorMsg1(int i) {
-    }
-
-    @Override
-    protected void splitErrorMsg2(int i) {
-    }
-
-    @Override
-    protected void splitAcesMsg(int i) {
-    }
-
-    @Override
-    protected void surrenderMsg(int i) {
-    }
-
-    @Override
-    protected void surrenderErrorMsg1() {
-    }
-
-    @Override
-    protected void surrenderErrorMsg2() {
-    }
-
-    @Override
-    protected void pBustMsg(int i) {
-    }
-
-    @Override
-    protected void dHandMsg() {
-    }
-
-    @Override
-    protected void dHitMsg(){
-    }
-
-    @Override
-    protected void dBustMsg(int i) {
-    }
-
-    @Override
-    protected void pHandLossMsg(int i) {
-    }
-
-    @Override
-    protected void pHandWinMsg(int i) {
-    }
-
-    @Override
-    protected void pHandPushMsg(int i) {
-    }
-
-    @Override
-    protected void aceMsg(Hand hand) {
-    }
-
-    @Override
-    protected void sHandFirstCardMsg(int i) {
-    }
-
-    @Override
-    protected void maxSplitsMsg(int i) {
-    }
-
-    @Override
-    protected void twoAcesAfterSplitMsg(){
-    }
+//    @Override
+//    protected void handMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void dUpCardMsg() {
+//    }
+//
+//    @Override
+//    protected void insuranceMsg(int i){
+//    }
+//
+//    @Override
+//    protected void insuranceFailMsg(int i){
+//    }
+//
+//    @Override
+//    protected void insuranceSuccessMsg(int i){
+//    }
+//
+//    @Override
+//    protected void pBJMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void dBJMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void pAndDBJMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void decisionMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void pHitMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void cantDASMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void doubleMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void doubleErrorMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void stayMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void splitMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void splitErrorMsg1(int i) {
+//    }
+//
+//    @Override
+//    protected void splitErrorMsg2(int i) {
+//    }
+//
+//    @Override
+//    protected void splitAcesMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void surrenderMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void surrenderErrorMsg1() {
+//    }
+//
+//    @Override
+//    protected void surrenderErrorMsg2() {
+//    }
+//
+//    @Override
+//    protected void pBustMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void dHandMsg() {
+//    }
+//
+//    @Override
+//    protected void dHitMsg(){
+//    }
+//
+//    @Override
+//    protected void dBustMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void pHandLossMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void pHandWinMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void pHandPushMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void aceMsg(Hand hand) {
+//    }
+//
+//    @Override
+//    protected void sHandFirstCardMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void maxSplitsMsg(int i) {
+//    }
+//
+//    @Override
+//    protected void twoAcesAfterSplitMsg(){
+//    }
 
 }
