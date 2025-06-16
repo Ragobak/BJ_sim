@@ -6,7 +6,7 @@ public class CountingBlackJack extends AutoBlackJack {
 
     protected Map<Integer, Integer[][]> strategies;
     protected int[] unitSizes =
-            {1,1,1,1,1,1,1,2,3,4,5,6,7};
+            {1,1,1,1,1,1,1,1,2,3,4,4,4};
     protected int initialUnit;
     protected int runningCount;
 
