@@ -18,6 +18,8 @@ public class AutoBlackJack extends BlackJack{
 
     //fix strategy based on game
     private final int[][] strategy;
+    //number of updates as testing happens
+    static final int PROGRESS_UPDATES = 3;
 
     public AutoBlackJack(Shoe shoe, int bankroll, int unit, String filename) {
         super(shoe, bankroll, unit);
@@ -41,6 +43,7 @@ public class AutoBlackJack extends BlackJack{
         for (int i = 0; i < shoes; i++) {
             play(playerHands);
             resetShoe();
+            progressCheck(shoes, i);
             if (totalMoneyPlayed < 0) {
                 System.err.println("Warning: totalMoneyPlayed overflowed!");
             }
@@ -51,6 +54,13 @@ public class AutoBlackJack extends BlackJack{
         System.out.println("Total money played: " + totalMoneyPlayed);
         System.out.println("% profit per unit: " +
                 (((bankroll - initialBankroll) / (totalMoneyPlayed)) * 100) + "\n");
+    }
+
+    //updates on progress of shoe running
+    protected void progressCheck(int shoes, int i) {
+        if ((i % (shoes/(PROGRESS_UPDATES+1))) == 0 && i != 0 && i != shoes) {
+            System.out.println("Progress: " + 100.0 * ((double) i/shoes));
+        }
     }
 
     //plays however many shoes however many times
