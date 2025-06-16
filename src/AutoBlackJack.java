@@ -21,6 +21,15 @@ public class AutoBlackJack extends BlackJack{
     //number of updates as testing happens
     static final int PROGRESS_UPDATES = 3;
 
+    //creates an autoBlackJack with no strategy
+    public AutoBlackJack(Shoe shoe, int bankroll, int unit) {
+        super(shoe, bankroll, unit);
+        handNumber = 0;
+        initialBankroll = bankroll;
+        strategy = null;
+    }
+
+    //creates an autoBlackJack with a given strategy
     public AutoBlackJack(Shoe shoe, int bankroll, int unit, String filename) {
         super(shoe, bankroll, unit);
         handNumber = 0;

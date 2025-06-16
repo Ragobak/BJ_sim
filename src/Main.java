@@ -8,7 +8,7 @@ public class Main
 
     public static void main(String[] args) {
         Shoe newShoe = new Shoe(6);
-        AutoBlackJack H17 = new CountingBlackJack(newShoe, 0, 1,"src/SC/HitOnSoft17.txt");
+        AutoBlackJack H17 = new CountingBlackJack(newShoe, 0, 1, "H17CtSt1");
         AutoBlackJack S17 = new AutoBlackJack(newShoe, 0, 1, "src/SC/StayOnSoft17.txt");
 
 

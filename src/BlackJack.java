@@ -84,7 +84,6 @@ public class BlackJack {
         dUpCardMsg();
     }
 
-    //TODO: finish this and make sure it works
     protected void insuranceOffer() {
         int[] choices = new int[pHs.size()];
         if (dH.getValue(0) == 11) {

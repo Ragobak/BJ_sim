@@ -1,19 +1,27 @@
 import java.util.*;
 
-//TODO: add the differing units and strategies based on counts
-//TODO: and implement a way to have them used, create text file layout for unit inputs
+/**
+ * Alter various methods in order widen
+ * or tighten count consideration
+ * Current: -6 to 6
+ */
+
+//TODO: add way to have unit sizings from file "U"
 public class CountingBlackJack extends AutoBlackJack {
 
-    protected Map<Integer, Integer[][]> strategies;
-    protected int[] unitSizes =
-            {1,1,1,1,1,1,1,1,2,3,4,4,4};
+    protected Map<Integer, int[][]> strategies;
+    protected Map<Integer, Integer> unitSizes;
     protected int initialUnit;
     protected int runningCount;
+    protected String fileFolder;
 
-    //current solo filename (not map) for testing purposes
-    public CountingBlackJack(Shoe shoe, int bankroll, int unit, String filename) {
-        super(shoe, bankroll, unit, filename);
+    //name of file within src as parameter, individual filenames C(count)
+    public CountingBlackJack(Shoe shoe, int bankroll, int unit, String fileFolder) {
+        super(shoe, bankroll, unit);
+        this.fileFolder = fileFolder;
+        initializeStrategies();
         initialUnit = unit;
+        initializeUnits();
         runningCount = 0;
     }
 
@@ -31,17 +39,25 @@ public class CountingBlackJack extends AutoBlackJack {
     }
 
     //get the true count
-    //TODO: verify this works
     private int getTrueCount(){
-        int currentDecks = shoe.getLeftInDeck() / 52;
-        return runningCount / currentDecks;
+        float unRoundedDecks = (float) (shoe.getLeftInDeck() / 52.0);
+        int decksLeft = Math.round(unRoundedDecks);
+        return runningCount / decksLeft;
     }
 
     //returns the optimal betting unit from the table
     private int getUnit(int count){
         if(count < -6) count = -6;
         if(count > 6) count = 6;
-        return initialUnit * unitSizes[count + 6];
+        return initialUnit * unitSizes.get(count);
+    }
+
+    @Override
+    protected int getStrategy(int row, int column){
+        int count = getTrueCount();
+        if(count < -6) count = -6;
+        if(count > 6) count = 6;
+        return strategies.get(count)[row][column];
     }
 
     //method that the messages call to adjust count based on card
@@ -78,5 +94,21 @@ public class CountingBlackJack extends AutoBlackJack {
     protected void hit(Hand hand){
         super.hit(hand);
         adjustCount(hand.getValue(hand.size() - 1));
+    }
+
+    //creates the map for strategies
+    private void initializeStrategies(){
+        strategies = new HashMap<>();
+        //takes considerations for counts from -6 to 6
+        for(int i = -6; i <= 6; i++){
+            strategies.put(i, createStrategy("src/" + fileFolder + "/C" + i));
+        }
+    }
+
+    private void initializeUnits(){
+        unitSizes = new HashMap<>();
+        for(int i = -6; i <= 6; i++){
+            unitSizes.put(i, i);
+        }
     }
 }
