@@ -28,8 +28,6 @@ public class BlackJack {
 
 
 
-
-
     protected final Shoe shoe;
     protected double bankroll;
     protected int unit;

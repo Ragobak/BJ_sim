@@ -8,13 +8,14 @@ public class Main
 
     public static void main(String[] args) {
         Shoe newShoe = new Shoe(6);
-        AutoBlackJack H17 = new CountingBlackJack(newShoe, 0, 1, "H17CtSt1");
-        AutoBlackJack S17 = new AutoBlackJack(newShoe, 0, 1, "src/SC/StayOnSoft17.txt");
+        AutoBlackJack Count = new CountingBlackJack(newShoe, 0, 1,
+                6, 3,"H17CtSt1");
+        AutoBlackJack Regular = new AutoBlackJack(newShoe, 0, 1, "src/SC/HitOnSoft17.txt");
 
 
-
-        System.out.println("H17 game w H17 strategy");
-        H17.play(1,10,3);
-        BlackJack.HIT_ON_SOFT_17 = false;
+        System.out.println("Counting:");
+        Count.play(1,1000000,3);
+        System.out.println("Regular: ");
+        Regular.play(1,1000000,3);
     }
 }

@@ -1,8 +1,9 @@
 import java.io.*;
 
-//something needs fixing, MAKE SURE REG GAME WORKS
 
 public class AutoBlackJack extends BlackJack{
+    //number of updates as testing happens
+    static final int PROGRESS_UPDATES = 3;
 
     //keep track of total hands/money played, and starting bankroll
     protected int handNumber;
@@ -18,8 +19,6 @@ public class AutoBlackJack extends BlackJack{
 
     //fix strategy based on game
     private final int[][] strategy;
-    //number of updates as testing happens
-    static final int PROGRESS_UPDATES = 3;
 
     //creates an autoBlackJack with no strategy
     public AutoBlackJack(Shoe shoe, int bankroll, int unit) {
@@ -188,19 +187,17 @@ public class AutoBlackJack extends BlackJack{
         return choice;
     }
 
-    //takes a file formatted correctly and makes it into readable 2D array
+    //takes a Strategy file formatted correctly and makes it into readable 2D array
     protected int[][] createStrategy(String filename) {
         int[][] array = new int[35][10];
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             int row = 0;
             while ((line = br.readLine()) != null && row < 35) {
-                // Remove comments starting with "//"
                 int commentIndex = line.indexOf("//");
                 if (commentIndex != -1) {
                     line = line.substring(0, commentIndex);
                 }
-                // Trim and split on commas
                 String[] tokens = line.trim().split(",");
                 if (tokens.length != 10) {
                     throw new RuntimeException("Invalid number of values in row " + row);
@@ -225,132 +222,132 @@ public class AutoBlackJack extends BlackJack{
 
 
 //    so no messages are printed during auto run
-//    @Override
-//    protected void handMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void dUpCardMsg() {
-//    }
-//
-//    @Override
-//    protected void insuranceMsg(int i){
-//    }
-//
-//    @Override
-//    protected void insuranceFailMsg(int i){
-//    }
-//
-//    @Override
-//    protected void insuranceSuccessMsg(int i){
-//    }
-//
-//    @Override
-//    protected void pBJMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void dBJMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pAndDBJMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void decisionMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pHitMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void cantDASMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void doubleMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void doubleErrorMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void stayMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void splitMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void splitErrorMsg1(int i) {
-//    }
-//
-//    @Override
-//    protected void splitErrorMsg2(int i) {
-//    }
-//
-//    @Override
-//    protected void splitAcesMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void surrenderMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void surrenderErrorMsg1() {
-//    }
-//
-//    @Override
-//    protected void surrenderErrorMsg2() {
-//    }
-//
-//    @Override
-//    protected void pBustMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void dHandMsg() {
-//    }
-//
-//    @Override
-//    protected void dHitMsg(){
-//    }
-//
-//    @Override
-//    protected void dBustMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pHandLossMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pHandWinMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void pHandPushMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void aceMsg(Hand hand) {
-//    }
-//
-//    @Override
-//    protected void sHandFirstCardMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void maxSplitsMsg(int i) {
-//    }
-//
-//    @Override
-//    protected void twoAcesAfterSplitMsg(){
-//    }
+    @Override
+    protected void handMsg(int i) {
+    }
+
+    @Override
+    protected void dUpCardMsg() {
+    }
+
+    @Override
+    protected void insuranceMsg(int i){
+    }
+
+    @Override
+    protected void insuranceFailMsg(int i){
+    }
+
+    @Override
+    protected void insuranceSuccessMsg(int i){
+    }
+
+    @Override
+    protected void pBJMsg(int i) {
+    }
+
+    @Override
+    protected void dBJMsg(int i) {
+    }
+
+    @Override
+    protected void pAndDBJMsg(int i) {
+    }
+
+    @Override
+    protected void decisionMsg(int i) {
+    }
+
+    @Override
+    protected void pHitMsg(int i) {
+    }
+
+    @Override
+    protected void cantDASMsg(int i) {
+    }
+
+    @Override
+    protected void doubleMsg(int i) {
+    }
+
+    @Override
+    protected void doubleErrorMsg(int i) {
+    }
+
+    @Override
+    protected void stayMsg(int i) {
+    }
+
+    @Override
+    protected void splitMsg(int i) {
+    }
+
+    @Override
+    protected void splitErrorMsg1(int i) {
+    }
+
+    @Override
+    protected void splitErrorMsg2(int i) {
+    }
+
+    @Override
+    protected void splitAcesMsg(int i) {
+    }
+
+    @Override
+    protected void surrenderMsg(int i) {
+    }
+
+    @Override
+    protected void surrenderErrorMsg1() {
+    }
+
+    @Override
+    protected void surrenderErrorMsg2() {
+    }
+
+    @Override
+    protected void pBustMsg(int i) {
+    }
+
+    @Override
+    protected void dHandMsg() {
+    }
+
+    @Override
+    protected void dHitMsg(){
+    }
+
+    @Override
+    protected void dBustMsg(int i) {
+    }
+
+    @Override
+    protected void pHandLossMsg(int i) {
+    }
+
+    @Override
+    protected void pHandWinMsg(int i) {
+    }
+
+    @Override
+    protected void pHandPushMsg(int i) {
+    }
+
+    @Override
+    protected void aceMsg(Hand hand) {
+    }
+
+    @Override
+    protected void sHandFirstCardMsg(int i) {
+    }
+
+    @Override
+    protected void maxSplitsMsg(int i) {
+    }
+
+    @Override
+    protected void twoAcesAfterSplitMsg(){
+    }
 
 }
