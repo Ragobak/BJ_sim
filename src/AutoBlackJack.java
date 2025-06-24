@@ -3,7 +3,7 @@ import java.io.*;
 
 public class AutoBlackJack extends BlackJack{
     //number of updates as testing happens
-    static final int PROGRESS_UPDATES = 8;
+    static final int PROGRESS_UPDATES = 1;
 
     //keep track of total hands/money played, and starting bankroll
     protected int handNumber;

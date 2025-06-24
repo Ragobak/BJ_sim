@@ -9,6 +9,7 @@ public class Shoe extends Deck{
             getCard(i).setAmtLeft(getCard(i).getAmtLeft() * decks);
         }
         this.decks = decks;
+        left *= decks;
     }
 
     public int getDecks(){

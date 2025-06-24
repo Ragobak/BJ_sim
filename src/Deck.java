@@ -2,15 +2,18 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Deck{
 
-    private final Card[] cards = new Card[10];
+    protected Card[] cards;
+    protected int left;
 
     public Deck(){
+        cards = new Card[10];
         for (int i = 0; i < 10; i++) {
             cards[i] = new Card( i+2, 4);
             if(i == 8){
                 cards[i].setAmtLeft(16);
             }
         }
+        left = 52;
     }
 
     public Card[] getCards(){
@@ -30,6 +33,7 @@ public class Deck{
             cumulativeSum += card.getAmtLeft();
             if (cardIndex < cumulativeSum) {
                 card.setAmtLeft(card.getAmtLeft() - 1);
+                left--;
                 return card;
             }
         }
@@ -38,11 +42,7 @@ public class Deck{
     }
 
     public int getLeftInDeck(){
-        int total = 0;
-        for(Card i : cards){
-            total += i.getAmtLeft();
-        }
-        return total;
+        return left;
     }
 
     public String toString(){

@@ -2,8 +2,8 @@
 
 public class Card{
 
-    private final int value;
-    private int amtLeft;
+    protected final int value;
+    protected int amtLeft;
 
     public Card(){
         this.value = 0;
