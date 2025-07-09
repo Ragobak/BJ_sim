@@ -16,6 +16,9 @@ public class Card{
         return value;
     }
 
+    public String getSuit() {
+        return null;
+    }
 
     public String toString(){
         return "This card has value of "+value;

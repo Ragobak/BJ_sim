@@ -24,10 +24,6 @@ public class Deck{
         return cards;
     }
 
-    public Card getCard(int index){
-        return cards.get(index);
-    }
-
     public Card pickCard(){
         left--;
         return cards.removeFirst();

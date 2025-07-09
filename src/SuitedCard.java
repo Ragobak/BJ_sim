@@ -6,6 +6,7 @@ public class SuitedCard extends Card{
         this.suit = suit;
     }
 
+    @Override
     public String getSuit(){
         return suit;
     }
