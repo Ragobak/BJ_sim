@@ -3,7 +3,8 @@
 public class Main
 {
 
-
+ //st1 and st2 unit: true count - 1
+ //st2 stay on 16 vs 10 on all +tc, st1 stay on 16 vs 10 & 11 on all +tc, both insurance at tc 4+
 
     public static void main(String[] args) {
         Shoe newShoe = new Shoe(6);
@@ -15,8 +16,8 @@ public class Main
 
 
         System.out.println("Strat 1:");
-        Count1.play(1,1000000,3);
+        Count1.play(1,10000000, 3);
         System.out.println("Strat 2: ");
-        Count2.play(1,1000000,3);
+        Count2.play(1,10000000, 3);
     }
 }

@@ -91,7 +91,7 @@ public class BlackJack {
             }
             if(dH.getValue(1) != 10){
                 for (int i = 0; i < choices.length; i++) {
-                    if (choices[i] == 0) {
+                    if (choices[i] == 1) {
                         bankroll -= unit * 0.5;
                         insuranceFailMsg(i);
                     }
@@ -99,7 +99,7 @@ public class BlackJack {
             }
             else if(dH.getValue(1) == 10){
                 for (int i = 0; i < choices.length; i++) {
-                    if (choices[i] == 0) {
+                    if (choices[i] == 1) {
                         bankroll += unit;
                         insuranceSuccessMsg(i);
                     }
@@ -187,7 +187,7 @@ public class BlackJack {
                         doubleDown(i);
                         doubleMsg(i);
                     } else {
-                        doubleErrorMsg(i);
+                        doubleErrorMsg();
                     }
                     //stay, set finished, end loop onto next hand
                 } else if (choice == 1) {
@@ -198,12 +198,12 @@ public class BlackJack {
                     //make sure can split
                     if (pHs.get(i).getValue(0) == pHs.get(i).getValue(1)) {
                         if (pHs.get(i).size() != 2) {
-                            splitErrorMsg1(i);
+                            splitErrorMsg1();
                         } else {
                             split(i);
                         }
                     } else {
-                        splitErrorMsg2(i);
+                        splitErrorMsg2();
                     }
                 } else if (choice == 4 && CAN_LATE_SURRENDER) {
                     if(pHs.get(i).size() == 2 && !isSplit(i)) {
@@ -316,7 +316,7 @@ public class BlackJack {
     protected boolean aceHandle(Hand hand) {
         for (int i = 0; i < hand.size(); i++) {
             if (hand.getValue(i) == 11) {
-                hand.changeCard(i, new Card(1, 1));
+                hand.changeCard(i, new Card(1));
                 aceMsg(hand);
                 return true;
             }
@@ -366,7 +366,7 @@ public class BlackJack {
 
     //hits once on each ace, if another ace it terminates so that it can be split again
     private void hitOnSplitAces(int index) {
-        splitAcesMsg(index);
+        splitAcesMsg();
         hit(pHs.get(index));
         sHandFirstCardMsg(index);
         //will re split action if another ace (if enabled), same below
@@ -458,7 +458,7 @@ public class BlackJack {
     }
 
     protected void insuranceMsg(int i){
-        System.out.println("Insurance on hand: " + i + "? yes: 0 no: 1");
+        System.out.println("Insurance on hand: " + i + "? yes: 1 no: 0");
     }
 
     protected void insuranceFailMsg(int i){
@@ -505,7 +505,7 @@ public class BlackJack {
                 " which puts you at " + pHs.get(i).getTotal());
     }
 
-    protected void doubleErrorMsg(int i) {
+    protected void doubleErrorMsg() {
         System.out.println("cannot double down after getting a card");
     }
 
@@ -517,15 +517,15 @@ public class BlackJack {
         System.out.println("you split " + pHs.get(i).getValue(0) + "'s");
     }
 
-    protected void splitErrorMsg1(int i) {
+    protected void splitErrorMsg1() {
         System.out.println("cannot split after getting a card");
     }
 
-    protected void splitErrorMsg2(int i) {
+    protected void splitErrorMsg2() {
         System.out.println("cannot split without 2 of same card");
     }
 
-    protected void splitAcesMsg(int i) {
+    protected void splitAcesMsg() {
         System.out.println("you can only get 1 card after splitting aces");
     }
 

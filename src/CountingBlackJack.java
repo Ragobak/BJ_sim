@@ -17,6 +17,7 @@ public class CountingBlackJack extends AutoBlackJack {
     protected int insuranceTake;
 
 
+    //TODO: find better way to incorporate insurance decision
     //name of file within src as parameter, individual filenames C(count)
     public CountingBlackJack(Shoe shoe, int bankroll, int unit,
                              int countRange, int insuranceTake, String fileFolder) {
@@ -70,9 +71,9 @@ public class CountingBlackJack extends AutoBlackJack {
     @Override
     protected int getInsuranceChoice(int i){
         if(getTrueCount() < insuranceTake) {
-            return 1;
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     //method that the messages call to adjust count based on card

@@ -1,44 +1,36 @@
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 
 public class Deck{
 
-    protected Card[] cards;
+    protected List<Card> cards;
     protected int left;
 
+    //creates a scrambled unsuited deck with 4 of each card, and 16 tens
     public Deck(){
-        cards = new Card[10];
+        cards = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            cards[i] = new Card( i+2, 4);
+            for (int j = 0; j < 4; j++) cards.add(new Card(i+2));
             if(i == 8){
-                cards[i].setAmtLeft(16);
+                for (int j = 0; j < 12; j++) cards.add(new Card(10));
             }
         }
+        Collections.shuffle(cards);
         left = 52;
     }
 
-    public Card[] getCards(){
+    public List<Card> getCards(){
         return cards;
     }
 
     public Card getCard(int index){
-        return cards[index];
+        return cards.get(index);
     }
 
     public Card pickCard(){
-        int totalCards = getLeftInDeck();
-        int cardIndex = ThreadLocalRandom.current().nextInt(totalCards);
-        int cumulativeSum = 0;
-
-        for (Card card : cards) {
-            cumulativeSum += card.getAmtLeft();
-            if (cardIndex < cumulativeSum) {
-                card.setAmtLeft(card.getAmtLeft() - 1);
-                left--;
-                return card;
-            }
-        }
-
-        return null; // Shouldn't reach here if totalCards is correct
+        left--;
+        return cards.removeFirst();
     }
 
     public int getLeftInDeck(){
@@ -48,8 +40,8 @@ public class Deck{
     public String toString(){
         StringBuilder r = new StringBuilder();
         for (Card card : cards) {
-            r.append("There are ").append(card.getAmtLeft()).append(" ").append(card.getValue()).append("'s remaining \n");
+            r.append(card.getValue()).append(", ");
         }
-        return r.toString();
+        return r + "\n";
     }
 }

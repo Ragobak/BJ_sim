@@ -3,7 +3,9 @@ import java.io.*;
 
 public class AutoBlackJack extends BlackJack{
     //number of updates as testing happens
-    static final int PROGRESS_UPDATES = 1;
+    static final int PROGRESS_UPDATES = 10;
+    //if want to print shoes
+    static final boolean PRINT_SHOES = false;
 
     //keep track of total hands/money played, and starting bankroll
     protected int handNumber;
@@ -64,13 +66,6 @@ public class AutoBlackJack extends BlackJack{
                 (((bankroll - initialBankroll) / (totalMoneyPlayed)) * 100) + "\n");
     }
 
-    //updates on progress of shoe running
-    protected void progressCheck(int shoes, int i) {
-        if ((i % (shoes/(PROGRESS_UPDATES+1))) == 0 && i != 0 && i != shoes) {
-            System.out.println("Progress: " + 100.0 * ((double) i/shoes));
-        }
-    }
-
     //plays however many shoes however many times
     public void play(int playerHands, int shoes, int times) {
         for (int i = 0; i < times; i++) {
@@ -78,6 +73,13 @@ public class AutoBlackJack extends BlackJack{
             handNumber = 0;
             totalMoneyPlayed = 0;
             bankroll = initialBankroll;
+        }
+    }
+
+    //updates on progress of shoe running
+    protected void progressCheck(int shoes, int i) {
+        if ((i % (shoes/(PROGRESS_UPDATES+1))) == 0 && i != 0 && i != shoes) {
+            System.out.println("Progress: " + 100.0 * ((double) i/shoes));
         }
     }
 
@@ -224,130 +226,162 @@ public class AutoBlackJack extends BlackJack{
 //    so no messages are printed during auto run
     @Override
     protected void handMsg(int i) {
+        if(PRINT_SHOES) super.handMsg(i);
     }
 
     @Override
     protected void dUpCardMsg() {
+        if(PRINT_SHOES) super.dUpCardMsg();
     }
 
     @Override
     protected void insuranceMsg(int i){
+        if(PRINT_SHOES) super.insuranceMsg(i);
     }
 
     @Override
     protected void insuranceFailMsg(int i){
+        if(PRINT_SHOES) super.insuranceFailMsg(i);
     }
 
     @Override
     protected void insuranceSuccessMsg(int i){
+        if(PRINT_SHOES) super.insuranceSuccessMsg(i);
     }
 
     @Override
     protected void pBJMsg(int i) {
+        if(PRINT_SHOES) super.pBJMsg(i);
     }
 
     @Override
     protected void dBJMsg(int i) {
+        if(PRINT_SHOES) super.dBJMsg(i);
     }
 
     @Override
     protected void pAndDBJMsg(int i) {
+        if(PRINT_SHOES) super.pAndDBJMsg(i);
     }
 
     @Override
     protected void decisionMsg(int i) {
+        if(PRINT_SHOES) super.decisionMsg(i);
     }
 
     @Override
     protected void pHitMsg(int i) {
+        if(PRINT_SHOES) super.pHitMsg(i);
     }
 
     @Override
     protected void cantDASMsg(int i) {
+        if(PRINT_SHOES) super.cantDASMsg(i);
     }
 
     @Override
     protected void doubleMsg(int i) {
+        if(PRINT_SHOES) super.doubleMsg(i);
     }
 
     @Override
-    protected void doubleErrorMsg(int i) {
+    protected void doubleErrorMsg() {
+        if(PRINT_SHOES) super.doubleErrorMsg();
     }
 
     @Override
     protected void stayMsg(int i) {
+        if(PRINT_SHOES) super.stayMsg(i);
     }
 
     @Override
     protected void splitMsg(int i) {
+        if(PRINT_SHOES) super.splitMsg(i);
     }
 
     @Override
-    protected void splitErrorMsg1(int i) {
+    protected void splitErrorMsg1() {
+        if(PRINT_SHOES) super.splitErrorMsg1();
     }
 
     @Override
-    protected void splitErrorMsg2(int i) {
+    protected void splitErrorMsg2() {
+        if(PRINT_SHOES) super.splitErrorMsg2();
     }
 
     @Override
-    protected void splitAcesMsg(int i) {
+    protected void splitAcesMsg() {
+        if(PRINT_SHOES) super.splitAcesMsg();
     }
 
     @Override
     protected void surrenderMsg(int i) {
+        if(PRINT_SHOES) super.surrenderMsg(i);
     }
 
     @Override
     protected void surrenderErrorMsg1() {
+        if(PRINT_SHOES) super.surrenderErrorMsg1();
     }
 
     @Override
     protected void surrenderErrorMsg2() {
+        if(PRINT_SHOES) super.surrenderErrorMsg2();
     }
 
     @Override
     protected void pBustMsg(int i) {
+        if(PRINT_SHOES) super.pBustMsg(i);
     }
 
     @Override
     protected void dHandMsg() {
+        if(PRINT_SHOES) super.dHandMsg();
     }
 
     @Override
     protected void dHitMsg(){
+        if(PRINT_SHOES) super.dHitMsg();
     }
 
     @Override
     protected void dBustMsg(int i) {
+        if(PRINT_SHOES) super.dBustMsg(i);
     }
 
     @Override
     protected void pHandLossMsg(int i) {
+        if(PRINT_SHOES) super.pHandLossMsg(i);
     }
 
     @Override
     protected void pHandWinMsg(int i) {
+        if(PRINT_SHOES) super.pHandWinMsg(i);
     }
 
     @Override
     protected void pHandPushMsg(int i) {
+        if(PRINT_SHOES) super.pHandPushMsg(i);
     }
 
     @Override
     protected void aceMsg(Hand hand) {
+        if(PRINT_SHOES) super.aceMsg(hand);
     }
 
     @Override
     protected void sHandFirstCardMsg(int i) {
+        if(PRINT_SHOES) super.sHandFirstCardMsg(i);
     }
 
     @Override
     protected void maxSplitsMsg(int i) {
+        if(PRINT_SHOES) super.maxSplitsMsg(i);
     }
 
     @Override
     protected void twoAcesAfterSplitMsg(){
+        if(PRINT_SHOES) super.twoAcesAfterSplitMsg();
     }
 
 }

@@ -1,13 +1,8 @@
 public class SuitedCard extends Card{
     private final String suit;
 
-    public SuitedCard(){
-        super();
-        suit = null;
-    }
-
     public SuitedCard(int value, String suit){
-        super(value, 1);
+        super(value);
         this.suit = suit;
     }
 

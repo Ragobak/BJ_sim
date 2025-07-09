@@ -1,15 +1,13 @@
-
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Shoe extends Deck{
     private final int decks;
     
     public Shoe(int decks){
-        super();
-        for (int i = 0; i < 10; i++){
-            getCard(i).setAmtLeft(getCard(i).getAmtLeft() * decks);
-        }
         this.decks = decks;
-        left *= decks;
+        cards = new ArrayList<>();
+        resetShoe();
     }
 
     public int getDecks(){
@@ -17,11 +15,12 @@ public class Shoe extends Deck{
     }
 
     public void resetShoe(){
-        for (int i = 0; i < 10; i++){
-            getCard(i).setAmtLeft(4 * decks);
-            if (i == 8) {
-                getCard(i).setAmtLeft(4 * getCard(i).getAmtLeft());
-            }
+        cards.clear();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 4 * decks; j++) cards.add(new Card(i+2));
         }
+        for (int j = 0; j < 12 * decks; j++) cards.add(new Card(10));
+        left = 52 * decks;
+        Collections.shuffle(cards);
     }
 }
