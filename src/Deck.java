@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
-public class Deck{
+public class Deck {
 
     protected List<Card> cards;
     protected int left;

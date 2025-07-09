@@ -16,8 +16,8 @@ public class Card{
         return value;
     }
 
-    public String getSuit() {
-        return null;
+    public char getSuit() {
+        return ' ';
     }
 
     public String toString(){

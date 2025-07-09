@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Hand extends Card {
-    protected final ArrayList<Card> cards;
+    protected final List<Card> cards;
     int total;
 
     public Hand(int num, Deck deck) {
@@ -14,10 +15,6 @@ public class Hand extends Card {
 
     public int getTotal() {
         return total;
-    }
-
-    public void changeTotal(int dT) {
-        total += dT;
     }
 
     public Card get(int card) {
@@ -38,7 +35,7 @@ public class Hand extends Card {
     }
 
     public void changeCard(int index, Card newCard){
-        changeTotal(newCard.getValue() - cards.get(index).getValue());
+        total += (newCard.getValue() - cards.get(index).getValue());
         cards.set(index, newCard);
     }
 

@@ -51,6 +51,7 @@ public class BJHand extends Hand{
             this.isBusted = true;
             this.isFinished = true;
         }
+
         public int getFinalBet() {
             return finalBet;
         }
@@ -68,9 +69,13 @@ public class BJHand extends Hand{
             return false;
         }
 
-        public void lockChoice(){choiceLocked = true;}
+        public void lockChoice() {
+            choiceLocked = true;
+        }
 
-        public boolean choiceLocked() {return choiceLocked;}
+        public boolean choiceLocked() {
+            return choiceLocked;
+        }
 
 }
 

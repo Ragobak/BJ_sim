@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Shoe extends Deck{
+public class Shoe extends Deck {
     private final int decks;
     
     public Shoe(int decks){

@@ -1,13 +1,13 @@
 public class SuitedCard extends Card{
-    private final String suit;
+    private final char suit;
 
-    public SuitedCard(int value, String suit){
+    public SuitedCard(int value, char suit){
         super(value);
         this.suit = suit;
     }
 
     @Override
-    public String getSuit(){
+    public char getSuit(){
         return suit;
     }
 
