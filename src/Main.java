@@ -3,8 +3,10 @@
 public class Main
 {
 
+    //TODO: make way to store findings
  //st1 and st2 unit: true count - 1
- //st2 stay on 16 vs 10 on all +tc, st1 stay on 16 vs 10 & 11 on all +tc, both insurance at tc 4+
+ //st1 stay on 16 vs 10 & 11 on all +tc, st2 stay on 16 vs only 10 on all +tc, both insurance at tc 4+
+//conclusion: st1 slightly better
 
     public static void main(String[] args) {
         Shoe newShoe = new Shoe(6);
