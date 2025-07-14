@@ -21,7 +21,7 @@ public class Card{
     }
 
     public String toString(){
-        return "This card has value of "+value;
+        return "" + value;
     }
 
 }

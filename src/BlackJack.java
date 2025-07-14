@@ -449,8 +449,7 @@ public class BlackJack {
 
     protected void handMsg(int i) {
         System.out.println("\nplayer " + i + " hand (bet: " + unit + "): " + pHs.get(i).getTotal());
-        System.out.println("card 1: " + pHs.get(i).getValue(0) +
-                " card 2: " + pHs.get(i).getValue(1));
+        System.out.println("card 1: " + pHs.get(i).get(0) + " card 2: " + pHs.get(i).get(1));
     }
 
     protected void dUpCardMsg() {

@@ -6,6 +6,10 @@ public class Hand extends Card {
     protected final List<Card> cards;
     int total;
 
+    public Hand() {
+        cards = null;
+    }
+
     public Hand(int num, Deck deck) {
         cards = new ArrayList<>();
         for (int i = 0; i < num; i++) {
@@ -28,6 +32,10 @@ public class Hand extends Card {
 
     public int getValue(int cardIndex) {
         return cards.get(cardIndex).getValue();
+    }
+
+    public char getSuit(int cardIndex) {
+        return ' ';
     }
 
     public void addRandomCard(Deck deck){

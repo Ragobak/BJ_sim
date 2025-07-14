@@ -12,7 +12,7 @@ public class SuitedCard extends Card{
     }
 
     public String toString(){
-        return "This card has value of "+value+" and suit: "+ suit;
+        return "" + value + suit;
     }
 
 }
