@@ -11,7 +11,7 @@ public class Main
     public static void main(String[] args) {
         SuitedDeck suitedDeck = new SuitedDeck();
         UltimateTexasHoldem ultimateTexasHoldem = new UltimateTexasHoldem(suitedDeck, 1000, 15);
-        ultimateTexasHoldem.playHand(1);
+        ultimateTexasHoldem.play(3, 5);
 //        Shoe newShoe = new Shoe(6);
 //        AutoBlackJack Count1 = new CountingBlackJack(newShoe, 0, 1,
 //                6, 4,"H17CtSt1");
