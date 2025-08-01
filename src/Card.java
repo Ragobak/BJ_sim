@@ -1,6 +1,6 @@
 
 
-public class Card{
+public class Card implements Comparable<Card> {
 
     protected final int value;
 
@@ -22,6 +22,11 @@ public class Card{
 
     public String toString(){
         return "" + value;
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return Integer.compare(this.value, o.value);
     }
 
 }

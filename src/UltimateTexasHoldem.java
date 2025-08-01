@@ -100,8 +100,51 @@ public class UltimateTexasHoldem {
 
     private void postHandLogic(int playerHands){
         //TODO: make it determine the hand (pair, flush, etc)
+        determineHand(playerHands);
         dealerHand();
         moneyMsg();
+    }
+
+    private void determineHand(int playerHands){
+        for (int i = 0; i < playerHands; i++) {
+            UTHHand final7 = new UTHHand(pHs.get(i), runOut);
+            getFinal5(final7);
+        }
+    }
+
+    private void getFinal5(UTHHand h) {
+        if(sFlushCheck(h)) return;
+//        quadsCheck(h);
+//        fullHouseCheck(h);
+//        flushCheck(h);
+//        straightCheck(h);
+//        tripsCheck(h);
+//        pairsCheck(h);
+    }
+
+    //TODO: need to make where if duplicate numbers handled properly
+    private boolean sFlushCheck(UTHHand h) {
+        int counter = 1; int index = 0;
+        int val = h.get(0).getValue();
+        char suit = h.get(0).getSuit();
+        for (int i = 1; i < h.size(); i++) {
+            if (h.get(i).getSuit() == suit && val == h.get(i).getValue() - 1) {
+                counter++;
+            } else if (val == h.get(i).getValue() - 1) {
+                if (val == h.get(i + 1).getValue() - 1) {
+                    index++;
+                }
+            } else {
+                counter = 1;
+                val = h.get(i).getValue();
+                suit = h.get(i).getSuit();
+                index++;
+                if(index > 3) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     protected int getChoice() {

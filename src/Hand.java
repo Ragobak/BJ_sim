@@ -3,7 +3,7 @@ import java.util.List;
 
 
 public class Hand extends Card {
-    protected final List<Card> cards;
+    protected List<Card> cards;
     int total;
 
     public Hand() {
@@ -54,5 +54,13 @@ public class Hand extends Card {
 
     public int size() {
         return cards.size();
+    }
+
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (Card card : cards) {
+            str.append(card.toString()).append(", ");
+        }
+        return str.toString();
     }
 }
